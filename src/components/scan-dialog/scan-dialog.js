@@ -30,7 +30,7 @@ Polymer({
 
       var dataUrls = scanResults.dataUrls;
       for (var i = 0; i < dataUrls.length; i++) {
-        var title = new Date().getTime();
+        var title = '' + new Date().getTime();
         if (this.$.documentName.value.trim()) {
           title = this.$.documentName.value.trim() + '_' + title;
         }
