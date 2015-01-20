@@ -47,6 +47,9 @@ Polymer({
         chrome.storage.local.set(metadata);
       }
 
+      this.$.toast.text = this.i18n('successMessage');
+      this.$.toast.show();
+
     }.bind(this));
 
   },

@@ -1,18 +1,17 @@
 {
-  "documentNameInputLabel": {
-    "message": "Document name",
-    "description": "Label of the document name input field."
+  "title": {
+    "message": "Scan a document"
   },
-  "scanConfirm": {
-    "message": "Scan",
-    "description": "Short name of the passphrase accept button."
+  "documentNameInputLabel": {
+    "message": "Document name"
   },
   "scanCancel": {
-    "message": "Cancel",
-    "description": "Short name of the passphrase cancel button."
+    "message": "Cancel"
   },
-  "title": {
-    "message": "Scan a document",
-    "description": ""
+  "scanConfirm": {
+    "message": "Scan"
+  },
+  "successMessage": {
+    "message": "Success! Check out the Files App."
   }
 }
