@@ -1,11 +1,8 @@
-<!doctype html>
-<!--
+<!DOCTYPE html><!--
 Copyright 2013 The Polymer Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
--->
-<html>
-<head>
+--><html><head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -17,7 +14,7 @@ license that can be found in the LICENSE file.
 
   <link href="core-focusable.html" rel="import">
 
-  <style shim-shadowdom>
+  <style shim-shadowdom="">
     body {
       font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
       font-size: 14px;
@@ -63,47 +60,22 @@ license that can be found in the LICENSE file.
 
   </style>
 </head>
-<body unresolved>
+<body unresolved="">
 
   <polymer-element name="focusable-button" tabindex="0">
-  <script>
-    (function() {
-      var p = {
-
-        eventDelegates: {
-          down: 'downAction',
-          up: 'upAction'
-        },
-
-        downAction: function() {
-          // call overriden event delegate
-          this._downAction();
-          console.log('down');
-        },
-
-        upAction: function() {
-          // call overriden event delegate
-          this._upAction();
-          console.log('up');
-        }
-
-      };
-
-      Polymer.mixin2(p, Polymer.CoreFocusable);
-      Polymer(p);
-    })();
-  </script>
+  <script src="demo.html.0.js"></script>
   </polymer-element>
 
   <section>
 
     <focusable-button>button</focusable-button>
 
-    <focusable-button toggle>toggle</focusable-button>
+    <focusable-button toggle="">toggle</focusable-button>
 
-    <focusable-button disabled>disabled</focusable-button>
+    <focusable-button disabled="">disabled</focusable-button>
 
   </section>
 
-</body>
-</html>
+
+
+</body></html>

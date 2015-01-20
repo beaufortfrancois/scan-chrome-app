@@ -1,11 +1,8 @@
-<!doctype html>
-<!--
+<!DOCTYPE html><!--
 Copyright 2013 The Polymer Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
--->
-<html>
-<head>
+--><html><head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,12 +25,12 @@ license that can be found in the LICENSE file.
   </style>
 
 </head>
-<body unresolved>
+<body unresolved="">
 
-  <div id="animate-me" hidden></div>
+  <div id="animate-me" hidden=""></div>
 
   <select id="sel" onchange="setup();">
-    <option value="core-transition-fade" selected>core-transition-fade</option>
+    <option value="core-transition-fade" selected="">core-transition-fade</option>
     <option value="core-transition-center">core-transition-center</option>
     <option value="core-transition-top">core-transition-top</option>
     <option value="core-transition-bottom">core-transition-bottom</option>
@@ -43,45 +40,7 @@ license that can be found in the LICENSE file.
 
   <button onclick="stuff();">toggle</button>
 
-  <script>
+  <script src="demo.html.0.js"></script>
 
-    document.addEventListener('polymer-ready', function() {
-      // initial setup
-      setup();
-      document.getElementById('animate-me').removeAttribute('hidden');
-    });
 
-    var meta;
-    var transition;
-    var state = {
-      opened: false
-    }
-
-    function getMeta() {
-      if (!meta) {
-        meta = document.createElement('core-meta');
-        meta.type = 'transition';
-      }
-      return meta;
-    }
-
-    function setup() {
-      var target = document.getElementById('animate-me');
-
-      if (transition) {
-        transition.teardown(target);
-      }
-
-      var value = document.getElementById('sel').selectedOptions[0].value;
-      transition = getMeta().byId(value);
-      transition.setup(target);
-    }
-
-    function stuff() {
-      var target = document.getElementById('animate-me');
-      state.opened = !state.opened;
-      transition.go(target, state);
-    }
-  </script>
-</body>
-</html>
+</body></html>

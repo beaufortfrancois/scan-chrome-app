@@ -1,20 +1,16 @@
-<!doctype html>
-<!--
+<!DOCTYPE html><!--
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<html>
-<head>
+--><html><head>
 
   <title>core-iconset-svg</title>
   <script src="../webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="svg-sample-icons.html">
-  <style shim-shadowdom>
+  <style shim-shadowdom="">
     .embiggen core-icon {
       height: 128px;
       width: 128px;
@@ -44,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
 </head>
-<body unresolved>
+<body unresolved="">
 
   <template is="auto-binding">
     <div class="embiggen">
@@ -54,13 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
     <core-meta id="meta" type="iconset"></core-meta>
   </template>
-  <script>
-    addEventListener('template-bound', function(e) {
-      var template = e.target;
-      var setName = 'svg-sample-icons';
-      var icons = template.$.meta.byId(setName).iconNames;
-      template.icons = icons.map(function(ic){ return setName + ':' +ic });
-    });
-  </script>
-</body>
-</html>
+  <script src="demo.html.0.js"></script>
+
+
+</body></html>

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<!--
+<!DOCTYPE html><!--
 Copyright 2013 The Polymer Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
--->
-<html>
-<head>
+--><html><head>
   <title>core-style</title>
   <script src="../webcomponentsjs/webcomponents.js"></script>
 
@@ -13,46 +10,29 @@ license that can be found in the LICENSE file.
   <link rel="import" href="my-theme.html">
   
 </head>
-<body unresolved fullbleed vertical layout>
+<body unresolved="" fullbleed="" vertical="" layout="">
   <core-style ref="main"></core-style>
 
   <template is="auto-binding">
     <my-toolbar>
-      <span flex>core-style</span>
+      <span flex="">core-style</span>
       <input type="color" value="{{g.theme.colorOne}}">
       <input type="color" value="{{g.theme.colorTwo}}">
       <input type="color" value="{{g.theme.colorThree}}">
       <input type="range" min="1" max="8" value="{{g.columns}}">
       <button>A button</button>
     </my-toolbar>
-    <section flex horizontal wrap layout>
+    <section flex="" horizontal="" wrap="" layout="">
       <template repeat="{{item in items}}">
         <my-panel>{{item}}</my-panel>
       </template>
     </section>
   </template>
 
-  <script>
-  (function() {
-
-    addEventListener('polymer-ready', function() {
-      var items = [];
-        for (var i=0; i < 100; i++) {
-          items.push(i);
-        }
-
-      CoreStyle.g.items = items;
-
-      addEventListener('template-bound', function(e) {
-        e.target.g = CoreStyle.g;
-        e.target.items = items;
-      });
-    });
-
-  })();
-  </script>
-
-</body>
-</html>
+  <script src="demo.html.0.js"></script>
 
 
+
+
+
+</body></html>

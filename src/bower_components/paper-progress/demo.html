@@ -6,10 +6,7 @@
     The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<!doctype html>
-<html>
-<head>
+--><!DOCTYPE html><html><head>
   <title>paper-progress</title>
   
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
@@ -21,7 +18,7 @@
   <link rel="import" href="paper-progress.html">
   <link rel="import" href="../paper-button/paper-button.html">
   
-  <style shim-shadowdom>
+  <style shim-shadowdom="">
   
     body {
       font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
@@ -46,11 +43,11 @@
   </style>
   
 </head>
-<body unresolved>
+<body unresolved="">
 
   <paper-progress></paper-progress>
 
-  <paper-button raised onclick="startProgress();">Start</paper-button>
+  <paper-button raised="" onclick="startProgress();">Start</paper-button>
   
   <br><br><br>
   
@@ -60,54 +57,20 @@
   
   <paper-progress value="800" min="100" max="1000"></paper-progress><br>
   
-  <paper-progress value="40" secondaryProgress="80"></paper-progress><br>
+  <paper-progress value="40" secondaryprogress="80"></paper-progress><br>
   
   <paper-progress value="200" max="200"></paper-progress><br>
   
-  <paper-progress indeterminate></paper-progress><br>
+  <paper-progress indeterminate=""></paper-progress><br>
 
   <paper-progress class="pink" value="80"></paper-progress><br>
   
-  <paper-progress class="pink" value="40" secondaryProgress="80"></paper-progress><br>
+  <paper-progress class="pink" value="40" secondaryprogress="80"></paper-progress><br>
   
-  <paper-progress class="pink" indeterminate></paper-progress><br>
+  <paper-progress class="pink" indeterminate=""></paper-progress><br>
 
-  <script>
-    
-    var progress = document.querySelector('paper-progress');
-    var button = document.querySelector('paper-button');
-    
-    var repeat, maxRepeat = 5, animating = false;
-    
-    function nextProgress() {
-      animating = true;
-      if (progress.value < progress.max) {
-        progress.value += (progress.step || 1);
-      } else {
-        if (++repeat >= maxRepeat) {
-          animating = false;
-          button.disabled = false;
-          return;
-        }
-        progress.value = progress.min;
-      }
-      progress.async(nextProgress);
-    }
-    
-    function startProgress() {
-      repeat = 0;
-      progress.value = progress.min;
-      button.disabled = true;
-      if (!animating) {
-        nextProgress();
-      }
-    }
-    
-    addEventListener('polymer-ready', function() {
-      startProgress();
-    });
-    
-  </script>
+  <script src="demo.html.0.js"></script>
   
-</body>
-</html>
+
+
+</body></html>

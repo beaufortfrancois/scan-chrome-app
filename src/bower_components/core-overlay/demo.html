@@ -6,10 +6,7 @@
     The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<!DOCTYPE html>
-<html>
-<head>
+--><!DOCTYPE html><html><head>
 	<title>core-overlay</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<script src="../webcomponentsjs/webcomponents.js"></script>
@@ -25,7 +22,7 @@
 		}
 	</style>
 </head>
-<body unresolved>
+<body unresolved="">
 	<section>
 		<x-container></x-container>
 	</section>
@@ -49,24 +46,10 @@
 				box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 			}
 		</style>
-		<core-overlay id="overlay" layered backdrop opened="{{opened}}" autoCloseDisabled="{{autoCloseDisabled}}"  transition="core-transition-center"></core-overlay>
+		<core-overlay id="overlay" layered="" backdrop="" opened="{{opened}}" autoclosedisabled="{{autoCloseDisabled}}" transition="core-transition-center"></core-overlay>
 		<content></content>
 	</template>
-	<script>
-
-	Polymer('x-dialog', {
-	
-		ready: function() {
-			this.$.overlay.target = this;
-		},
-
-		toggle: function() {
-			this.$.overlay.toggle();
-		}
-
-	});
-
-	</script>
+	<script src="demo.html.0.js"></script>
 	</polymer-element>
 
 
@@ -75,7 +58,7 @@
 	<template>
 		<x-dialog id="dialog" class="dialog">
 			<!-- place all overlay styles inside the overlay target -->
-			<style no-shim>
+			<style no-shim="">
 				.dialog {
 					box-sizing: border-box;
 					-moz-box-sizing: border-box;
@@ -99,11 +82,11 @@
 			<div>Ut aliquam vulputate congue. Vestibulum pretium pretium nulla quis sollicitudin. Praesent lacinia congue erat nec mattis. Fusce commodo lacus est. Duis turpis eros, ultrices sed aliquet non, blandit egestas velit. Integer a augue nec lorem tristique hendrerit. Curabitur imperdiet risus id enim bibendum vestibulum. Integer id magna at arcu faucibus fermentum vel a augue. Sed fringilla venenatis dolor, in blandit magna molestie luctus. Vestibulum dignissim posuere ultrices. Aenean urna nisl, tincidunt vitae iaculis ut, pharetra nec eros.</div><br><br>
 
 			<div>
-				<input placeholder="say something..." autofocus on-input="{{inputHandler}}" /><br>
+				<input placeholder="say something..." autofocus="" on-input="{{inputHandler}}"><br>
 				I agree with this wholeheartedly.
-				<core-overlay layered id="confirmation" class="dialog" backdrop transition="core-transition-top">
+				<core-overlay layered="" id="confirmation" class="dialog" backdrop="" transition="core-transition-top">
 					<!-- place all overlay styles inside the overlay target -->
-					<style no-shim>
+					<style no-shim="">
 						.dialog {
 							box-sizing: border-box;
 							-moz-box-sizing: border-box;
@@ -127,29 +110,14 @@
 					Thank you.
 				</core-overlay>
 			</div><br><br>
-			<button core-overlay-toggle>OK</button>
+			<button core-overlay-toggle="">OK</button>
 		</x-dialog>
 
 		<button on-tap="{{tapHandler}}">Toggle Dialog</button>
 	</template>
-	<script>
-	
-	Polymer('x-container', {
-	
-		inputHandler: function(e) {
-			if (e.target.value === 'something') {
-				this.$.confirmation.toggle();
-			}
-		},
-	
-		tapHandler: function() {
-			this.$.dialog.toggle();
-		}
-	
-	});
-	
-	</script>
+	<script src="demo.html.1.js"></script>
 	</polymer-element>
 
-</body>
-</html>
+
+
+</body></html>

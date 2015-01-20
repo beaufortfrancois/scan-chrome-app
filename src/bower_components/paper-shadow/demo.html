@@ -1,11 +1,8 @@
-<!doctype html>
-<!--
+<!DOCTYPE html><!--
 Copyright 2013 The Polymer Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
--->
-<html>
-<head>
+--><html><head>
   <title>paper-shadow</title>
 
   <meta charset="utf-8">
@@ -59,7 +56,7 @@ license that can be found in the LICENSE file.
 
   </style>
 </head>
-<body unresolved>
+<body unresolved="">
 
 <template is="auto-binding">
 
@@ -97,11 +94,11 @@ license that can be found in the LICENSE file.
 
     <div>Animated</div>
 
-    <paper-shadow class="card" z="0" animated>
+    <paper-shadow class="card" z="0" animated="">
       tap
     </paper-shadow>
 
-    <paper-shadow class="fab" z="0" animated layout center-center>
+    <paper-shadow class="fab" z="0" animated="" layout="" center-center="">
       tap
     </paper-shadow>
 
@@ -109,26 +106,8 @@ license that can be found in the LICENSE file.
 
 </template>
 
-<script>
+<script src="demo.html.0.js"></script>
 
-  var scope = document.querySelector('template[is=auto-binding]');
 
-  scope.tapAction = function(e) {
-    var target = e.target;
-    if (!target.down) {
-      target.setZ(target.z + 1);
-      if (target.z === 5) {
-        target.down = true;
-      }
-    } else {
-      target.setZ(target.z - 1);
-      if (target.z === 0) {
-        target.down = false;
-      }
-    }
-  };
 
-</script>
-
-</body>
-</html>
+</body></html>

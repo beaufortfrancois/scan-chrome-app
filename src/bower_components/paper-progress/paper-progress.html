@@ -5,9 +5,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<!--
+--><!--
 The progress bars are for situations where the percentage completed can be 
 determined. They give users a quick sense of how much longer an operation 
 will take.
@@ -47,11 +45,9 @@ To change the progress bar background color:
 @element paper-progress
 @extends core-range
 @homepage github.io
--->
+--><html><head><link rel="import" href="../core-range/core-range.html">
 
-<link rel="import" href="../core-range/core-range.html">
-
-<polymer-element name="paper-progress" extends="core-range" attributes="secondaryProgress indeterminate">
+</head><body><polymer-element name="paper-progress" extends="core-range" attributes="secondaryProgress indeterminate">
 
   <template>
   
@@ -59,66 +55,14 @@ To change the progress bar background color:
   
     <div id="progressContainer" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="{{min}}" aria-valuemax="{{max}}">
     
-      <div id="secondaryProgress" fit></div>
-      <div id="activeProgress" fit></div>
+      <div id="secondaryProgress" fit=""></div>
+      <div id="activeProgress" fit=""></div>
       
     </div>
     
   </template>
   
-  <script>
-  
-    Polymer('paper-progress', {
-      
-      /**
-       * The number that represents the current secondary progress.
-       *
-       * @attribute secondaryProgress
-       * @type number
-       * @default 0
-       */
-      secondaryProgress: 0,
-      
-      /**
-       * Use an indeterminate progress indicator.
-       *
-       * @attribute indeterminate
-       * @type boolean
-       * @default false
-       */
-      indeterminate: false,
-
-      step: 0,
-      
-      observe: {
-        'value secondaryProgress min max indeterminate': 'update'
-      },
-      
-      update: function() {
-        this.super();
-        this.secondaryProgress = this.clampValue(this.secondaryProgress);
-        this.secondaryRatio = this.calcRatio(this.secondaryProgress) * 100;
-
-        // If we use attribute/class binding, the animation sometimes doesn't translate properly
-        // on Safari 7.1. So instead, we toggle the class here in the update method.
-        this.$.activeProgress.classList.toggle('indeterminate', this.indeterminate);
-      },
-
-      transformProgress: function(progress, ratio) {
-        var transform = 'scaleX(' + (ratio / 100) + ')';
-        progress.style.transform = progress.style.webkitTransform = transform;
-      },
-
-      ratioChanged: function() {
-        this.transformProgress(this.$.activeProgress, this.ratio);
-      },
-
-      secondaryRatioChanged: function() {
-        this.transformProgress(this.$.secondaryProgress, this.secondaryRatio);
-      }
-      
-    });
-    
-  </script>
+  <script src="paper-progress.html.0.js"></script>
   
 </polymer-element>
+</body></html>

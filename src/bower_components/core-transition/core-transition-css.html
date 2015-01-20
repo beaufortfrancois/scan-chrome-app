@@ -5,9 +5,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<!--
+--><!--
 
 `<core-transition-css>` implements CSS transitions as `<core-transition>` objects so they can be
 reused in a pluggable transition system such as in `<core-overlay>`. Currently this class has
@@ -100,121 +98,19 @@ Available transitions
 @extends core-transition
 @status beta
 @homepage github.io
--->
+--><html><head><link rel="import" href="core-transition.html">
 
-<link rel="import" href="core-transition.html">
-
-<polymer-element name="core-transition-css" extends="core-transition" attributes="transitionType">
+</head><body><polymer-element name="core-transition-css" extends="core-transition" attributes="transitionType">
 <template>
-  <link no-shim rel="stylesheet" href="core-transition-overlay.css">
+  <link no-shim="" rel="stylesheet" href="core-transition-overlay.css">
 </template>
-<script>
-
-  Polymer('core-transition-css', {
-
-    /**
-     * The class that will be applied to all animated nodes.
-     *
-     * @attribute baseClass
-     * @type string
-     * @default "core-transition"
-     */
-    baseClass: 'core-transition',
-
-    /**
-     * The class that will be applied to nodes in the opened state.
-     *
-     * @attribute openedClass
-     * @type string
-     * @default "core-opened"
-     */
-    openedClass: 'core-opened',
-
-    /**
-     * The class that will be applied to nodes in the closed state.
-     *
-     * @attribute closedClass
-     * @type string
-     * @default "core-closed"
-     */
-    closedClass: 'core-closed',
-
-    /**
-     * Event to listen to for animation completion.
-     *
-     * @attribute completeEventName
-     * @type string
-     * @default "transitionEnd"
-     */
-    completeEventName: 'transitionend',
-
-    publish: {
-      /**
-       * A secondary configuration attribute for the animation. The class
-       * `<baseClass>-<transitionType` is applied to the animated node during
-       * `setup`.
-       *
-       * @attribute transitionType
-       * @type string
-       */
-      transitionType: null
-    },
-
-    registerCallback: function(element) {
-      this.transitionStyle = element.templateContent().firstElementChild;
-    },
-
-    // template is just for loading styles, we don't need a shadowRoot
-    fetchTemplate: function() {
-      return null;
-    },
-
-    go: function(node, state) {
-      if (state.opened !== undefined) {
-        this.transitionOpened(node, state.opened);
-      }
-    },
-
-    setup: function(node) {
-      if (!node._hasTransitionStyle) {
-        if (!node.shadowRoot) {
-          node.createShadowRoot().innerHTML = '<content></content>';
-        }
-        this.installScopeStyle(this.transitionStyle, 'transition',
-            node.shadowRoot);
-        node._hasTransitionStyle = true;
-      }
-      node.classList.add(this.baseClass);
-      if (this.transitionType) {
-        node.classList.add(this.baseClass + '-' + this.transitionType);
-      }
-    },
-
-    teardown: function(node) {
-      node.classList.remove(this.baseClass);
-      if (this.transitionType) {
-        node.classList.remove(this.baseClass + '-' + this.transitionType);
-      }
-    },
-
-    transitionOpened: function(node, opened) {
-      this.listenOnce(node, this.completeEventName, function() {
-        if (!opened) {
-          node.classList.remove(this.closedClass);
-        }
-        this.complete(node);
-      });
-      node.classList.toggle(this.openedClass, opened);
-      node.classList.toggle(this.closedClass, !opened);
-    }
-
-  });
-</script>
+<script src="core-transition-css.html.0.js"></script>
 </polymer-element>
 
 <core-transition-css id="core-transition-fade"></core-transition-css>
-<core-transition-css id="core-transition-center" transitionType="center"></core-transition-css>
-<core-transition-css id="core-transition-top" transitionType="top"></core-transition-css>
-<core-transition-css id="core-transition-bottom" transitionType="bottom"></core-transition-css>
-<core-transition-css id="core-transition-left" transitionType="left"></core-transition-css>
-<core-transition-css id="core-transition-right" transitionType="right"></core-transition-css>
+<core-transition-css id="core-transition-center" transitiontype="center"></core-transition-css>
+<core-transition-css id="core-transition-top" transitiontype="top"></core-transition-css>
+<core-transition-css id="core-transition-bottom" transitiontype="bottom"></core-transition-css>
+<core-transition-css id="core-transition-left" transitiontype="left"></core-transition-css>
+<core-transition-css id="core-transition-right" transitiontype="right"></core-transition-css>
+</body></html>
