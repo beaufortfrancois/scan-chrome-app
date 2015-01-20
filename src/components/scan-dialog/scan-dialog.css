@@ -1,0 +1,47 @@
+paper-progress {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #2196f3;
+}
+
+paper-progress::shadow #activeProgress {
+  background-color: #2196f3;
+}
+
+paper-button,
+paper-input {
+  -webkit-app-region: no-drag;
+}
+
+paper-button {
+  color: #2196f3;
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+paper-input {
+  width: 100%;
+}
+
+paper-input /deep/ .focused-underline {
+  background-color: #2196f3;
+}
+
+#content {
+  margin: 24px 24px 16px 24px;
+}
+
+#actions {
+  margin-right: 16px;
+}
+
+:host {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+}

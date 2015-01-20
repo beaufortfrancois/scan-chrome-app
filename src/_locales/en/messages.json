@@ -1,0 +1,18 @@
+{
+  "documentNameInputLabel": {
+    "message": "Document name",
+    "description": "Label of the document name input field."
+  },
+  "scanConfirm": {
+    "message": "Scan",
+    "description": "Short name of the passphrase accept button."
+  },
+  "scanCancel": {
+    "message": "Cancel",
+    "description": "Short name of the passphrase cancel button."
+  },
+  "title": {
+    "message": "Scan a document",
+    "description": ""
+  }
+}

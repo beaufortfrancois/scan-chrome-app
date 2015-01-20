@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+
+<polymer-element name="scan-dialog">
+  <template>
+
+    <link rel="stylesheet" href="scan-dialog.css">
+
+    <div id="content">
+      <h2>{{ 'title' | i18n }}</h2>
+      <paper-input id="documentName" label="{{ 'documentNameInputLabel' | i18n }}"></paper-input>
+    </div>
+
+    <div id="actions" relative layout horizontal class="middle">
+      <div flex></div>
+      <paper-button on-click="{{cancel}}" id="cancelButton">
+          {{ 'scanCancel' | i18n }}
+      </paper-button>
+      <paper-button on-click="{{confirm}}" id="confirmButton" affirmative autofocus >
+          {{ 'scanConfirm' | i18n }}
+      </paper-button>
+    </div>
+
+    <paper-toast id="toast"></paper-toast>
+    <paper-progress id="progressBar" indeterminate hidden class="fit bottom"></paper-progress>
+
+  </template>
+  <script src="scan-dialog.js"></script>
+</polymer-element>

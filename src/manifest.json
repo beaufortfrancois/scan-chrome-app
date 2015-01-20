@@ -2,9 +2,12 @@
   "name": "Scan",
   "version": "0.1",
   "manifest_version": 2,
-  "background": {
-    "scripts": ["background.js"]
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
   },
+  "default_locale": "en",
   "icons": {
     "32": "assets/icon_32.png"
   },

@@ -1,0 +1,10 @@
+{
+  "name": "scan-chrome-extension",
+  "private": true,
+  "dependencies": {
+    "paper-button": "Polymer/paper-button#~0.5.2",
+    "paper-input": "Polymer/paper-input#~0.5.2",
+    "paper-progress": "Polymer/paper-progress#~0.5.2",
+    "paper-toast": "Polymer/paper-toast#~0.5.2"
+  }
+}
