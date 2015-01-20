@@ -18,6 +18,12 @@ function sanitizeMetadata(metadata) {
 function onGetMetadataRequested(options, onSuccess, onError) {
   console.log('onGetMetadataRequested', options.entryPath);
 
+  if (options.entryPath === '/') {
+    var root = {isDirectory: true, name: 'root', size: 0, modificationTime: new Date()};
+    onSuccess(root);
+    return;
+  }
+
   chrome.storage.local.get(options.entryPath, function(localMetadata) {
     var metadata = localMetadata[options.entryPath];
     if (!metadata) {
@@ -109,14 +115,6 @@ function dataURItoArrayBuffer(dataURI) {
 }
 
 window.onload = function() {
-  // Save root metadata.
-  chrome.storage.local.set({'/': {
-    isDirectory: true,
-    name: 'Document Scan',
-    size: 0,
-    modificationTime: new Date().toString()
-  }});
-
   // Mount the file system.
   var options = { fileSystemId: 'scan', displayName: 'Document Scan', writable: true };
   chrome.fileSystemProvider.mount(options);
