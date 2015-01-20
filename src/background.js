@@ -109,6 +109,14 @@ function dataURItoArrayBuffer(dataURI) {
 }
 
 window.onload = function() {
+  // Save root metadata.
+  chrome.storage.local.set({'/': {
+    isDirectory: true,
+    name: 'Document Scan',
+    size: 0,
+    modificationTime: new Date().toString()
+  }});
+
   // Mount the file system.
   var options = { fileSystemId: 'scan', displayName: 'Document Scan', writable: true };
   chrome.fileSystemProvider.mount(options);
