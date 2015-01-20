@@ -53,10 +53,6 @@ Polymer({
     }.bind(this));
 
   },
-  visitSaneWebsite: function(event) {
-    event.preventDefault();
-    window.open('http://sane-project.org/sane-mfgs.html');
-  },
   ready: function() {
     this.injectBoundHTML(chrome.i18n.getMessage('disclaimer'), this.$.disclaimer);
 
