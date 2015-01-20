@@ -30,7 +30,10 @@ Polymer({
 
       var dataUrls = scanResults.dataUrls;
       for (var i = 0; i < dataUrls.length; i++) {
-        var title = this.$.documentName.value;
+        var title = new Date().getTime();
+        if (this.$.documentName.value.trim()) {
+          title = this.$.documentName.value.trim() + '_' + title;
+        }
         var metadata = {};
         metadata['/' + title] = {
           isDirectory: false,
