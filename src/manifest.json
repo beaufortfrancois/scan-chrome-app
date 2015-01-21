@@ -9,7 +9,9 @@
   },
   "default_locale": "en",
   "icons": {
-    "32": "assets/icon_32.png"
+    "32": "assets/icon_32.png",
+    "128": "assets/icon_128.png",
+    "256": "assets/icon_256.png"
   },
   "permissions": ["documentScan", "fileSystemProvider", "storage"]
 }
