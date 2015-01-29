@@ -19,7 +19,7 @@ function onGetMetadataRequested(options, onSuccess, onError) {
   console.log('onGetMetadataRequested', options.entryPath);
 
   if (options.entryPath === '/') {
-    var root = {isDirectory: true, name: 'root', size: 0, modificationTime: new Date()};
+    var root = {isDirectory: true, name: '', size: 0, modificationTime: new Date()};
     onSuccess(root);
     return;
   }
