@@ -7,11 +7,13 @@ Polymer({
   },
   confirm: function() {
     this.$.progressBar.hidden = false;
+    this.$.confirmButton.disabled = true;
 
     var scanProperties = {};
     chrome.documentScan.scan(scanProperties, function(scanResults) {
 
       this.$.progressBar.hidden = true;
+      this.$.confirmButton.disabled = false;
 
       if (chrome.runtime.lastError) {
         this.$.toast.text = chrome.runtime.lastError.message;
