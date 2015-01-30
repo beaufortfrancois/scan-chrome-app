@@ -5,8 +5,8 @@
   "documentNameInputLabel": {
     "message": "Document name"
   },
-  "scanCancel": {
-    "message": "Cancel"
+  "windowClose": {
+    "message": "Close"
   },
   "scanConfirm": {
     "message": "Scan"

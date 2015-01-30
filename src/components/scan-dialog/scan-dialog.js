@@ -2,7 +2,7 @@ Polymer({
   i18n: function(name) {
     return chrome.i18n.getMessage(name);
   },
-  cancel: function() {
+  close: function() {
     window.close();
   },
   confirm: function() {
@@ -20,6 +20,8 @@ Polymer({
         this.$.toast.show();
         return;
       }
+      this.$.toast.text = this.i18n('successMessage');
+      this.$.toast.show();
 
       var dataUrls = scanResults.dataUrls;
       for (var i = 0; i < dataUrls.length; i++) {
@@ -39,19 +41,14 @@ Polymer({
         // Save metadata locally.
         chrome.storage.local.set(metadata);
       }
-
-      this.$.toast.text = this.i18n('successMessage');
-      this.$.toast.show();
-
     }.bind(this));
-
   },
   ready: function() {
     document.addEventListener('keydown', function(event) {
       if (event.keyCode == 13)  // Enter
         this.$.confirmButton.click();
       if (event.keyCode == 27)  // Escape
-        this.$.cancelButton.click();
+        this.$.closeButton.click();
     }.bind(this));
 
     chrome.app.window.current().show();
