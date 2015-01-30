@@ -45,8 +45,6 @@ Polymer({
 
   },
   ready: function() {
-    this.injectBoundHTML(chrome.i18n.getMessage('disclaimer'), this.$.disclaimer);
-
     document.addEventListener('keydown', function(event) {
       if (event.keyCode == 13)  // Enter
         this.$.confirmButton.click();
