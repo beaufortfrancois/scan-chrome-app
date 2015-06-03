@@ -1,15 +1,3 @@
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
-  chrome.app.window.create(
-    'window.html',
-    {
-      innerBounds: {width: 320, height: 160},
-      resizable: false,
-      frame: 'none',
-      hidden: true,
-    }
-  );
-});
-
 function sanitizeMetadata(metadata) {
   metadata.modificationTime = new Date(metadata.modificationTime);
   return metadata;
@@ -99,9 +87,23 @@ function onDeleteEntryRequested(options, onSuccess, onError) {
   })
 }
 
-
 function onUnmountRequested(options, onSuccess, onError) {
+  console.log('onUnmountRequested', options);
+
   onSuccess();
+  chrome.fileSystemProvider.unmount({ fileSystemId: options.fileSystemId });
+}
+
+function onMountRequested(onSuccess, onError) {
+  console.log('onMountRequested');
+
+  onSuccess();
+  mountFileSystemProvider();
+}
+
+function mountFileSystemProvider() {
+  var options = { fileSystemId: 'scan', displayName: 'Scan', writable: true };
+  chrome.fileSystemProvider.mount(options);
 }
 
 function dataURItoArrayBuffer(dataURI) {
@@ -114,10 +116,16 @@ function dataURItoArrayBuffer(dataURI) {
   return ia.buffer;
 }
 
-window.onload = function() {
-  // Mount the file system.
-  var options = { fileSystemId: 'scan', displayName: 'Document Scan', writable: true };
-  chrome.fileSystemProvider.mount(options);
+function showWindow() {
+  var options = {
+    innerBounds: {width: 320, height: 160},
+    resizable: false,
+    frame: 'none',
+    hidden: true,
+  }
+  chrome.app.window.create('window.html', options, function(appWindow) {
+    appWindow.contentWindow.backgroundPage = window;
+  });
 }
 
 
@@ -127,4 +135,7 @@ chrome.fileSystemProvider.onOpenFileRequested.addListener(onOpenFileRequested);
 chrome.fileSystemProvider.onReadFileRequested.addListener(onReadFileRequested);
 chrome.fileSystemProvider.onCloseFileRequested.addListener(onCloseFileRequested);
 chrome.fileSystemProvider.onDeleteEntryRequested.addListener(onDeleteEntryRequested);
+chrome.fileSystemProvider.onMountRequested.addListener(onMountRequested);
 chrome.fileSystemProvider.onUnmountRequested.addListener(onUnmountRequested);
+
+chrome.app.runtime.onLaunched.addListener(showWindow);

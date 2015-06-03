@@ -39,7 +39,9 @@ Polymer({
           thumbnail: dataUrls[i]
         };
         // Save metadata locally.
-        chrome.storage.local.set(metadata);
+        chrome.storage.local.set(metadata, function() {
+          backgroundPage.mountFileSystemProvider();
+        });
       }
     }.bind(this));
   },
