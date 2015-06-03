@@ -40,7 +40,9 @@ Polymer({
         };
         // Save metadata locally.
         chrome.storage.local.set(metadata, function() {
-          backgroundPage.mountFileSystemProvider();
+          if (!chrome.runtime.lastError) {
+            chrome.runtime.sendMessage({action: 'mountFileSystem'});
+          }
         });
       }
     }.bind(this));

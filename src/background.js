@@ -98,10 +98,10 @@ function onMountRequested(onSuccess, onError) {
   console.log('onMountRequested');
 
   onSuccess();
-  mountFileSystemProvider();
+  mountFileSystem();
 }
 
-function mountFileSystemProvider() {
+function mountFileSystem() {
   var options = { fileSystemId: 'scan', displayName: 'Scan', writable: true };
   chrome.fileSystemProvider.mount(options);
 }
@@ -123,9 +123,13 @@ function showWindow() {
     frame: 'none',
     hidden: true,
   }
-  chrome.app.window.create('window.html', options, function(appWindow) {
-    appWindow.contentWindow.backgroundPage = window;
-  });
+  chrome.app.window.create('window.html', options);
+}
+
+function onMessage(message) {
+  if (message.action === 'mountFileSystem') {
+    mountFileSystem();
+  }
 }
 
 
@@ -139,3 +143,4 @@ chrome.fileSystemProvider.onMountRequested.addListener(onMountRequested);
 chrome.fileSystemProvider.onUnmountRequested.addListener(onUnmountRequested);
 
 chrome.app.runtime.onLaunched.addListener(showWindow);
+chrome.runtime.onMessage.addListener(onMessage);
