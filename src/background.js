@@ -103,7 +103,11 @@ function onMountRequested(onSuccess, onError) {
 
 function mountFileSystem() {
   var options = { fileSystemId: 'scan', displayName: 'Scan', writable: true };
-  chrome.fileSystemProvider.mount(options);
+  chrome.fileSystemProvider.mount(options, function() {
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError.message);
+    }
+  });
 }
 
 function dataURItoArrayBuffer(dataURI) {
