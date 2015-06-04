@@ -41,16 +41,15 @@ function onReadDirectoryRequested(options, onSuccess, onError) {
 // openFileRequested and as a value the file path.
 var openedFiles = {};
 
+// A map with currently opened buffers. As key it has requestId of
+// openFileRequested and as a value the buffer.
+var openedBuffers = {};
+
 function onOpenFileRequested(options, onSuccess, onError) {
   console.log('onOpenFileRequested', options);
-  if (options.mode != 'READ' || options.create) {
-    onError('INVALID_OPERATION');
-  } else {
-    chrome.storage.local.get(null, function(metadata) {
-      openedFiles[options.requestId] = options.filePath;
-      onSuccess();
-    });
-  }
+
+  openedFiles[options.requestId] = options.filePath;
+  onSuccess();
 }
 
 function onReadFileRequested(options, onSuccess, onError) {
@@ -74,7 +73,22 @@ function onCloseFileRequested(options, onSuccess, onError) {
     return;
   }
 
-  delete openedFiles[options.openRequestId];
+  if (openedBuffers[options.openRequestId]) {
+    var bytes = new Uint8Array(openedBuffers[options.openRequestId]);
+    for (var i = 0, binary = ''; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    var dataURI = 'data:image/png;base64,' + window.btoa(binary);
+    chrome.storage.local.get(openedFiles[options.openRequestId], function(localMetadata) {
+      localMetadata[openedFiles[options.openRequestId]].thumbnail = dataURI;
+      chrome.storage.local.set(localMetadata, function() {
+        delete openedBuffers[options.openRequestId];
+        delete openedFiles[options.openRequestId];
+      });
+    });
+  } else {
+    delete openedFiles[options.openRequestId];
+  }
   onSuccess();
 }
 
@@ -93,6 +107,37 @@ function onMoveEntryRequested(options, onSuccess, onError) {
       })
     });
   })
+}
+
+function onTruncateRequested(options, onSuccess, onError) {
+  console.log('onTruncateRequested', options);
+
+  onSuccess();
+}
+
+function onWriteFileRequested(options, onSuccess, onError) {
+  console.log('onWriteFileRequested', options);
+
+  if (!openedFiles[options.openRequestId]) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  if (options.offset == 0) {
+    openedBuffers[options.openRequestId] = options.data;
+    onSuccess();
+  } else if (!openedBuffers[options.openRequestId]) {
+    onError('INVALID_OPERATION');
+  } else {
+    var blob = new Blob([openedBuffers[options.openRequestId], options.data]);
+    var reader = new FileReader();
+    reader.addEventListener("loadend", function() {
+      openedBuffers[options.openRequestId] = reader.result;
+      onSuccess();
+    });
+    reader.readAsArrayBuffer(blob);
+
+  }
 }
 
 function onDeleteEntryRequested(options, onSuccess, onError) {
@@ -160,6 +205,8 @@ chrome.fileSystemProvider.onReadFileRequested.addListener(onReadFileRequested);
 chrome.fileSystemProvider.onCloseFileRequested.addListener(onCloseFileRequested);
 chrome.fileSystemProvider.onDeleteEntryRequested.addListener(onDeleteEntryRequested);
 chrome.fileSystemProvider.onMoveEntryRequested.addListener(onMoveEntryRequested);
+chrome.fileSystemProvider.onWriteFileRequested.addListener(onWriteFileRequested);
+chrome.fileSystemProvider.onTruncateRequested.addListener(onTruncateRequested);
 chrome.fileSystemProvider.onMountRequested.addListener(onMountRequested);
 chrome.fileSystemProvider.onUnmountRequested.addListener(onUnmountRequested);
 
