@@ -78,6 +78,22 @@ function onCloseFileRequested(options, onSuccess, onError) {
   onSuccess();
 }
 
+function onMoveEntryRequested(options, onSuccess, onError) {
+  console.log('onMoveEntryRequested', options);
+
+  chrome.storage.local.get(options.sourcePath, function(data) {
+    var localMetadata = {};
+    localMetadata[options.targetPath] = data[options.sourcePath];
+    localMetadata[options.targetPath].name = options.targetPath.substr(1);
+    localMetadata[options.targetPath].modificationTime = new Date().toString();
+    // TODO: Find out what to do with mimeType
+    chrome.storage.local.set(localMetadata, function() {
+      chrome.storage.local.remove(options.sourcePath, function() {
+        onSuccess();
+      })
+    });
+  })
+}
 
 function onDeleteEntryRequested(options, onSuccess, onError) {
   console.log('onDeleteEntryRequested', options);
@@ -143,8 +159,10 @@ chrome.fileSystemProvider.onOpenFileRequested.addListener(onOpenFileRequested);
 chrome.fileSystemProvider.onReadFileRequested.addListener(onReadFileRequested);
 chrome.fileSystemProvider.onCloseFileRequested.addListener(onCloseFileRequested);
 chrome.fileSystemProvider.onDeleteEntryRequested.addListener(onDeleteEntryRequested);
+chrome.fileSystemProvider.onMoveEntryRequested.addListener(onMoveEntryRequested);
 chrome.fileSystemProvider.onMountRequested.addListener(onMountRequested);
 chrome.fileSystemProvider.onUnmountRequested.addListener(onUnmountRequested);
+
 
 chrome.app.runtime.onLaunched.addListener(showWindow);
 chrome.runtime.onMessage.addListener(onMessage);
