@@ -1,10 +1,12 @@
+const FILE_SYSTEM_ID = 'scan';
+
 function sanitizeMetadata(metadata) {
   metadata.modificationTime = new Date(metadata.modificationTime);
   return metadata;
 }
 
 function onGetMetadataRequested(options, onSuccess, onError) {
-  console.log('onGetMetadataRequested', options.entryPath);
+  console.log('onGetMetadataRequested', options);
 
   if (options.entryPath === '/') {
     var root = {isDirectory: true, name: '', size: 0, modificationTime: new Date()};
@@ -27,7 +29,7 @@ function onGetMetadataRequested(options, onSuccess, onError) {
 }
 
 function onReadDirectoryRequested(options, onSuccess, onError) {
-  console.log('onReadDirectoryRequested', options.directoryPath);
+  console.log('onReadDirectoryRequested', options);
 
   chrome.storage.local.get(null, function(localMetadata) {
     var entries = Object.keys(localMetadata).map(function(entryPath) {
@@ -79,17 +81,35 @@ function onCloseFileRequested(options, onSuccess, onError) {
       binary += String.fromCharCode(bytes[i]);
     }
     var dataURI = 'data:image/png;base64,' + window.btoa(binary);
-    chrome.storage.local.get(openedFiles[options.openRequestId], function(localMetadata) {
-      localMetadata[openedFiles[options.openRequestId]].thumbnail = dataURI;
+    var entryPath = openedFiles[options.openRequestId];
+    chrome.storage.local.get(entryPath, function(localMetadata) {
+      // Update file thumbnail.
+      localMetadata[entryPath].thumbnail = dataURI;
+      localMetadata[entryPath].modificationTime = new Date().toString();
       chrome.storage.local.set(localMetadata, function() {
-        delete openedBuffers[options.openRequestId];
-        delete openedFiles[options.openRequestId];
+        chrome.fileSystemProvider.get(FILE_SYSTEM_ID, function(fileSystemInfo) {
+          fileSystemInfo.watchers.forEach(function(watcher) {
+            // Notify watcher if relevant.
+            if (entryPath.startsWith(watcher.entryPath)) {
+              var notifyOptions = {
+                fileSystemId: FILE_SYSTEM_ID,
+                observedPath: watcher.entryPath,
+                recursive: watcher.recursive,
+                changeType: 'CHANGED'
+              };
+              chrome.fileSystemProvider.notify(notifyOptions);
+            }
+          });
+          delete openedBuffers[options.openRequestId];
+          delete openedFiles[options.openRequestId];
+          onSuccess();
+        });
       });
     });
   } else {
     delete openedFiles[options.openRequestId];
+    onSuccess();
   }
-  onSuccess();
 }
 
 function onMoveEntryRequested(options, onSuccess, onError) {
@@ -148,6 +168,18 @@ function onDeleteEntryRequested(options, onSuccess, onError) {
   })
 }
 
+function onAddWatcherRequested(options, onSuccess, onError) {
+  console.log('onAddWatcherRequested', options);
+
+  onSuccess();
+}
+
+function onRemoveWatcherRequested(options, onSuccess, onError) {
+  console.log('onRemoveWatcherRequested', options);
+
+  onSuccess();
+}
+
 function onUnmountRequested(options, onSuccess, onError) {
   console.log('onUnmountRequested', options);
 
@@ -163,7 +195,7 @@ function onMountRequested(onSuccess, onError) {
 }
 
 function mountFileSystem() {
-  var options = { fileSystemId: 'scan', displayName: 'Scan', writable: true };
+  var options = { fileSystemId: FILE_SYSTEM_ID, displayName: 'Scan', writable: true };
   chrome.fileSystemProvider.mount(options, function() {
     if (chrome.runtime.lastError) {
       console.log(chrome.runtime.lastError.message);
@@ -207,6 +239,8 @@ chrome.fileSystemProvider.onDeleteEntryRequested.addListener(onDeleteEntryReques
 chrome.fileSystemProvider.onMoveEntryRequested.addListener(onMoveEntryRequested);
 chrome.fileSystemProvider.onWriteFileRequested.addListener(onWriteFileRequested);
 chrome.fileSystemProvider.onTruncateRequested.addListener(onTruncateRequested);
+chrome.fileSystemProvider.onAddWatcherRequested.addListener(onAddWatcherRequested);
+chrome.fileSystemProvider.onRemoveWatcherRequested.addListener(onRemoveWatcherRequested);
 chrome.fileSystemProvider.onMountRequested.addListener(onMountRequested);
 chrome.fileSystemProvider.onUnmountRequested.addListener(onUnmountRequested);
 
