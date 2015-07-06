@@ -1,0 +1,17 @@
+{
+  "title": {
+    "message": "Escanea un documento"
+  },
+  "documentNameInputLabel": {
+    "message": "Nombre del documento"
+  },
+  "windowClose": {
+    "message": "Cerrar"
+  },
+  "scanConfirm": {
+    "message": "Escanear"
+  },
+  "successMessage": {
+    "message": "¡Éxito! Echa un vistazo a la aplicación Archivos."
+  }
+}
