@@ -1,7 +1,15 @@
 const FILE_SYSTEM_ID = 'scan';
 
-function sanitizeMetadata(metadata) {
+function sanitizeMetadata(metadata, options) {
   metadata.modificationTime = new Date(metadata.modificationTime);
+  if (options) {
+    if (!options.name) { delete metadata.name; }
+    if (!options.thumbnail) { delete(metadata.thumbnail); }
+    if (!options.size) { delete(metadata.size); }
+    if (!options.mimeType) { delete(metadata.mimeType); }
+    if (!options.modificationTime) { delete(metadata.modificationTime); }
+    if (!options.isDirectory) { delete(metadata.isDirectory); }
+  }
   return metadata;
 }
 
@@ -10,7 +18,7 @@ function onGetMetadataRequested(options, onSuccess, onError) {
 
   if (options.entryPath === '/') {
     var root = {isDirectory: true, name: '', size: 0, modificationTime: new Date()};
-    onSuccess(root);
+    onSuccess(sanitizeMetadata(root, options));
     return;
   }
 
@@ -19,11 +27,7 @@ function onGetMetadataRequested(options, onSuccess, onError) {
     if (!metadata) {
       onError('NOT_FOUND');
     } else {
-      // If no thumbnail is requested, make sure metadata don't include one.
-      if (!options.thumbnail) {
-        delete(metadata.thumbnail);
-      }
-      onSuccess(sanitizeMetadata(metadata));
+      onSuccess(sanitizeMetadata(metadata, options));
     }
   });
 }
@@ -33,7 +37,7 @@ function onReadDirectoryRequested(options, onSuccess, onError) {
 
   chrome.storage.local.get(null, function(localMetadata) {
     var entries = Object.keys(localMetadata).map(function(entryPath) {
-      return sanitizeMetadata(localMetadata[entryPath]);
+      return sanitizeMetadata(localMetadata[entryPath], options);
     });
     onSuccess(entries, false /* last call. */);
   });
