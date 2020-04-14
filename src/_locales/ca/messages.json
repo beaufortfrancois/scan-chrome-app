@@ -1,0 +1,17 @@
+{
+  "title": {
+    "message": "Escaneja un document"
+  },
+  "documentNameInputLabel": {
+    "message": "Nom del document"
+  },
+  "windowClose": {
+    "message": "Tancar"
+  },
+  "scanConfirm": {
+    "message": "Escanejar"
+  },
+  "successMessage": {
+    "message": "Èxit! Dóna un cop d'ull a l'aplicació Fitxers."
+  }
+}
